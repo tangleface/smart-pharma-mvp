@@ -7,6 +7,7 @@ import type {
   PharmacyRiskResponse,
   Signal,
   SignalDetail,
+  TerritoryMapResponse,
   TrendPoint
 } from "@/lib/types";
 
@@ -51,5 +52,6 @@ export const api = {
   dashboardTrends: () => request<TrendPoint[]>("/dashboard/trends"),
   dashboardCategories: () => request<BreakdownPoint[]>("/dashboard/categories"),
   dashboardSeverity: () => request<BreakdownPoint[]>("/dashboard/severity"),
-  pharmacyRisks: () => request<PharmacyRiskResponse>("/pharmacy-risks")
+  pharmacyRisks: () => request<PharmacyRiskResponse>("/pharmacy-risks"),
+  territoryMap: () => request<TerritoryMapResponse>("/vnext/territory/map")
 };
