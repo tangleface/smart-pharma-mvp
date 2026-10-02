@@ -8,6 +8,7 @@ from app.routes import (
     dashboard,
     pharmacies_vnext,
     pharmacy_risks,
+    territory_vnext,
     reports,
     signals,
     vnext,
@@ -57,3 +58,4 @@ app.include_router(pharmacy_risks.router)
 # Experimental v0.2 routes use Supabase/PostgreSQL through a separate DB session.
 app.include_router(vnext.router)
 app.include_router(pharmacies_vnext.router)
+app.include_router(territory_vnext.router)
