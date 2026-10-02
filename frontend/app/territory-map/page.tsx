@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { LngLatBounds, Map as MapLibreMap, Marker, NavigationControl, Popup } from "maplibre-gl";
+import { LngLatBounds, Map as MapLibreMap, Marker, NavigationControl, Popup, setWorkerUrl } from "maplibre-gl";
 import { Activity, CalendarDays, Layers3, Loader2, MapPinned, ShieldCheck } from "lucide-react";
 
 import { api } from "@/lib/api";
@@ -38,6 +38,8 @@ export default function TerritoryMapPage() {
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
+
+    setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
 
     const map = new MapLibreMap({
       container: mapContainerRef.current,
