@@ -70,6 +70,19 @@ class VNextVisit(VNextBase):
     status: Mapped[str] = mapped_column(String, nullable=False)
 
 
+class VNextObservation(VNextBase):
+    __tablename__ = "observations"
+
+    id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), primary_key=True)
+    organization_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), nullable=False)
+    visit_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("visits.id"), nullable=False)
+    category: Mapped[str] = mapped_column(String, nullable=False)
+    observation_text: Mapped[str] = mapped_column(Text, nullable=False)
+    source: Mapped[str] = mapped_column(String, nullable=False)
+    validation_status: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
 class VNextClassification(VNextBase):
     __tablename__ = "classifications"
 
