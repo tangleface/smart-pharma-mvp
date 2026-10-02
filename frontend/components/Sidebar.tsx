@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, BarChart3, ClipboardPlus, FileText, Lightbulb, ShieldAlert } from "lucide-react";
+import { Activity, BarChart3, ClipboardPlus, FileText, Lightbulb, Map, ShieldAlert } from "lucide-react";
 
 const nav = [
   { href: "/dashboard", label: "Vue d'ensemble terrain", icon: BarChart3 },
+  { href: "/territory-map", label: "Territory Intelligence", icon: Map },
   { href: "/reports/new", label: "Nouveau rapport de visite", icon: ClipboardPlus },
   { href: "/reports", label: "Rapports de visite", icon: FileText },
   { href: "/signals", label: "Signaux opérationnels", icon: Activity },
