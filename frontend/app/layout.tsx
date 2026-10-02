@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
 
@@ -20,4 +21,3 @@ export default function RootLayout({
     </html>
   );
 }
-
