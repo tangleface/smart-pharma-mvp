@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import maplibregl, { type Map as MapLibreMap, type Marker } from "maplibre-gl";
+import { LngLatBounds, Map as MapLibreMap, Marker, NavigationControl, Popup } from "maplibre-gl";
 import { Activity, CalendarDays, Layers3, Loader2, MapPinned, ShieldCheck } from "lucide-react";
 
 import { api } from "@/lib/api";
@@ -39,7 +39,7 @@ export default function TerritoryMapPage() {
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
-    const map = new maplibregl.Map({
+    const map = new MapLibreMap({
       container: mapContainerRef.current,
       style: {
         version: 8,
@@ -57,7 +57,7 @@ export default function TerritoryMapPage() {
       zoom: 10
     });
 
-    map.addControl(new maplibregl.NavigationControl(), "top-right");
+    map.addControl(new NavigationControl(), "top-right");
     mapRef.current = map;
 
     return () => {
@@ -75,7 +75,7 @@ export default function TerritoryMapPage() {
     markerRefs.current.forEach((marker) => marker.remove());
     markerRefs.current = [];
 
-    const bounds = new maplibregl.LngLatBounds();
+    const bounds = new LngLatBounds();
 
     for (const point of data.points) {
       const markerElement = document.createElement("button");
@@ -89,11 +89,11 @@ export default function TerritoryMapPage() {
       markerElement.style.boxShadow = "0 0 0 2px rgba(6,7,10,0.45), 0 4px 14px rgba(0,0,0,0.35)";
       markerElement.style.cursor = "pointer";
 
-      const popup = new maplibregl.Popup({ offset: 18, maxWidth: "320px" }).setDOMContent(
+      const popup = new Popup({ offset: 18, maxWidth: "320px" }).setDOMContent(
         buildPopup(point)
       );
 
-      const marker = new maplibregl.Marker({ element: markerElement })
+      const marker = new Marker({ element: markerElement })
         .setLngLat([point.longitude, point.latitude])
         .setPopup(popup)
         .addTo(map);
