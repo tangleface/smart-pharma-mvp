@@ -66,7 +66,7 @@ export default function TerritoryMapPage() {
       map.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     const map = mapRef.current;
