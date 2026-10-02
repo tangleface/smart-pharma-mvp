@@ -140,3 +140,33 @@ export type PharmacyRiskResponse = {
   pharmacies: PharmacyRiskItem[];
   zones: PharmacyRiskZone[];
 };
+
+
+export type CoverageStatus = "on_target" | "watch" | "undercovered" | "excluded" | "unknown";
+
+export type TerritoryMapPoint = {
+  id: string;
+  name: string;
+  internal_code: string | null;
+  territory: string | null;
+  delegate: string | null;
+  city: string | null;
+  latitude: number;
+  longitude: number;
+  segment: string | null;
+  pharmacy_status: string;
+  target_visits_month: number | null;
+  visits_last_30_days: number;
+  coverage_ratio: number | null;
+  coverage_status: CoverageStatus;
+  last_visit_at: string | null;
+  days_since_last_visit: number | null;
+  management_priority: string | null;
+  observations_last_30_days: number;
+};
+
+export type TerritoryMapResponse = {
+  generated_at: string;
+  coverage_window_days: number;
+  points: TerritoryMapPoint[];
+};
