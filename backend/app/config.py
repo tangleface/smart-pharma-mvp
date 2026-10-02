@@ -16,7 +16,13 @@ LOCAL_FRONTEND_ORIGINS = (
 class Settings(BaseSettings):
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
     openai_model: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL")
+
+    # Legacy MVP database (SQLite by default).
     database_url: str = Field(default="sqlite:///./pharma_intel.db", alias="DATABASE_URL")
+
+    # Experimental v0.2 database (Supabase/PostgreSQL), isolated from the legacy DB.
+    vnext_database_url: str | None = Field(default=None, alias="VNEXT_DATABASE_URL")
+
     frontend_origin: str = Field(
         default=",".join(LOCAL_FRONTEND_ORIGINS),
         alias="FRONTEND_ORIGIN",
