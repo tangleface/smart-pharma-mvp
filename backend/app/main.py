@@ -3,7 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.database import SessionLocal, init_db
-from app.routes import actions, dashboard, pharmacy_risks, reports, signals, vnext
+from app.routes import (
+    actions,
+    dashboard,
+    pharmacies_vnext,
+    pharmacy_risks,
+    reports,
+    signals,
+    vnext,
+)
 from app.seed import seed_demo_data
 
 
@@ -48,3 +56,4 @@ app.include_router(pharmacy_risks.router)
 
 # Experimental v0.2 routes use Supabase/PostgreSQL through a separate DB session.
 app.include_router(vnext.router)
+app.include_router(pharmacies_vnext.router)
