@@ -16,7 +16,10 @@ LOCAL_FRONTEND_ORIGINS = (
 class Settings(BaseSettings):
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
     openai_model: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL")
-    openai_transcription_model: str = Field(default="gpt-transcribe", alias="OPENAI_TRANSCRIPTION_MODEL")
+    openai_transcription_model: str = Field(
+        default="gpt-4o-mini-transcribe",
+        alias="OPENAI_TRANSCRIPTION_MODEL",
+    )
 
     # Legacy MVP database (SQLite by default).
     database_url: str = Field(default="sqlite:///./pharma_intel.db", alias="DATABASE_URL")
