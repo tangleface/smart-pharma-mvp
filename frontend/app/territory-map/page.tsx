@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { LngLatBounds, Map as MapLibreMap, Marker, NavigationControl, Popup, setWorkerUrl } from "maplibre-gl";
-import { Activity, CalendarDays, Layers3, Loader2, MapPinned, ShieldCheck, X } from "lucide-react";
+import { Activity, CalendarDays, Layers3, Loader2, MapPinned, ShieldCheck } from "lucide-react";
 
+import { PharmacyContextPanel } from "@/components/PharmacyContextPanel";
 import { api } from "@/lib/api";
 import type { PharmacyContextResponse, TerritoryMapPoint, TerritoryMapResponse } from "@/lib/types";
 
@@ -291,7 +292,7 @@ export default function TerritoryMapPage() {
               <div ref={mapContainerRef} className="h-[620px] w-full" />
             </div>
           </div>
-          <ContextPanel
+          <PharmacyContextPanel
             context={selectedContext}
             loading={contextLoading}
             error={contextError}
@@ -306,89 +307,6 @@ export default function TerritoryMapPage() {
           Une sous-couverture n’est pas automatiquement un problème. Le panneau de contexte sépare observation terrain, directive management et action.
         </p>
       </section>
-    </div>
-  );
-}
-
-function ContextPanel({
-  context,
-  loading,
-  error,
-  onClose
-}: {
-  context: PharmacyContextResponse | null;
-  loading: boolean;
-  error: string | null;
-  onClose: () => void;
-}) {
-  if (loading) {
-    return (
-      <div className="rounded-lg border border-white/10 bg-panel p-4 text-sm text-muted">
-        <Loader2 className="mr-2 inline h-4 w-4 animate-spin" />Chargement du contexte…
-      </div>
-    );
-  }
-  if (error) return <div className="rounded-lg border border-critical/30 bg-critical/10 p-4 text-sm text-critical">{error}</div>;
-  if (!context) return <div className="rounded-lg border border-white/10 bg-panel p-4 text-sm text-muted">Clique sur une pharmacie ou lance un scénario pour afficher son contexte métier.</div>;
-
-  return (
-    <aside className="rounded-lg border border-white/10 bg-panel p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold uppercase text-accent">Contexte & gouvernance</p>
-          <h3 className="mt-1 text-base font-semibold text-text">{context.name}</h3>
-          <p className="mt-1 text-xs text-muted">{context.territory ?? "—"} · {context.delegate ?? "—"} · segment {context.segment ?? "—"}</p>
-        </div>
-        <button type="button" onClick={onClose} className="text-muted hover:text-text"><X className="h-4 w-4" /></button>
-      </div>
-
-      <div className="mt-4 rounded-md border border-white/10 bg-card p-3">
-        <p className="text-xs font-semibold uppercase text-muted">Priorité management</p>
-        <p className="mt-1 text-sm font-semibold text-text">{priorityLabel(context.management_priority)}</p>
-        {context.management_priority_reason && <p className="mt-1 text-xs leading-5 text-muted">{context.management_priority_reason}</p>}
-      </div>
-
-      <ContextSection title="Observation terrain" empty="Aucune observation récente">
-        {context.observations.map((item) => (
-          <div key={item.id} className="rounded-md border border-white/10 bg-card p-3">
-            <div className="flex flex-wrap gap-2 text-[11px] text-muted">
-              <span>{item.product ?? item.category}</span><span>·</span><span>{sourceLabel(item.source)}</span><span>·</span><span>{validationLabel(item.validation_status)}</span>
-            </div>
-            <p className="mt-2 text-sm leading-5 text-text">{item.text}</p>
-          </div>
-        ))}
-      </ContextSection>
-
-      <ContextSection title="Directive management" empty="Aucune directive active">
-        {context.directives.map((item) => (
-          <div key={item.id} className="rounded-md border border-warning/20 bg-warning/10 p-3">
-            <p className="text-sm font-semibold text-text">{item.title}</p>
-            <p className="mt-1 text-xs leading-5 text-text">{item.instruction}</p>
-            <p className="mt-2 text-[11px] text-muted">Portée {scopeLabel(item.scope)} · créée par {item.created_by}</p>
-          </div>
-        ))}
-      </ContextSection>
-
-      <ContextSection title="Action" empty="Aucune action ouverte">
-        {context.actions.map((item) => (
-          <div key={item.id} className="rounded-md border border-accent/20 bg-accent/10 p-3">
-            <p className="text-sm font-semibold text-text">{item.title}</p>
-            {item.rationale && <p className="mt-1 text-xs leading-5 text-muted">{item.rationale}</p>}
-            <p className="mt-2 text-[11px] text-muted">Source {actionSourceLabel(item.source)} · priorité {priorityLabel(item.priority)}</p>
-          </div>
-        ))}
-      </ContextSection>
-    </aside>
-  );
-}
-
-function ContextSection({ title, empty, children }: { title: string; empty: string; children: ReactNode }) {
-  const array = Array.isArray(children) ? children : [children];
-  const hasItems = array.some(Boolean);
-  return (
-    <div className="mt-4">
-      <p className="mb-2 text-xs font-semibold uppercase text-muted">{title}</p>
-      {hasItems ? <div className="space-y-2">{children}</div> : <p className="text-xs text-muted">{empty}</p>}
     </div>
   );
 }
@@ -475,34 +393,6 @@ function priorityLabel(priority: string | null): string {
   if (priority === "low") return "Faible";
   if (priority === "urgent") return "Urgente";
   return "Non définie";
-}
-
-function sourceLabel(source: string): string {
-  if (source === "delegate") return "Délégué";
-  if (source === "ai_extracted") return "Extraction IA";
-  if (source === "manager") return "Management";
-  return source;
-}
-
-function validationLabel(status: string): string {
-  if (status === "raw") return "Brute";
-  if (status === "validated") return "Validée";
-  if (status === "rejected") return "Rejetée";
-  if (status === "needs_review") return "À valider";
-  return status;
-}
-
-function scopeLabel(scope: string): string {
-  if (scope === "territory") return "Territoire";
-  if (scope === "pharmacy") return "Pharmacie";
-  return scope;
-}
-
-function actionSourceLabel(source: string): string {
-  if (source === "business_rule") return "Règle métier";
-  if (source === "ai_suggested") return "Suggestion IA";
-  if (source === "manual") return "Manuelle";
-  return source;
 }
 
 function Metric({ title, value, icon, alert = false }: { title: string; value: number; icon: ReactNode; alert?: boolean }) {
