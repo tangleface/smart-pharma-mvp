@@ -8,9 +8,10 @@ from app.routes import (
     dashboard,
     pharmacies_vnext,
     pharmacy_risks,
-    territory_vnext,
     reports,
     signals,
+    territory_vnext,
+    transcription,
     vnext,
 )
 from app.seed import seed_demo_data
@@ -59,3 +60,4 @@ app.include_router(pharmacy_risks.router)
 app.include_router(vnext.router)
 app.include_router(pharmacies_vnext.router)
 app.include_router(territory_vnext.router)
+app.include_router(transcription.router)
