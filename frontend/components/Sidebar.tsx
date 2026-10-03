@@ -2,16 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, BarChart3, ClipboardPlus, FileText, Lightbulb, Map, ShieldAlert } from "lucide-react";
+import { Activity, BarChart3, ClipboardPlus, FileText, Lightbulb, Map } from "lucide-react";
 
 const nav = [
   { href: "/dashboard", label: "Vue d'ensemble terrain", icon: BarChart3 },
-  { href: "/territory-map", label: "Territory Intelligence", icon: Map },
+  { href: "/territory-map", label: "Intelligence territoriale", icon: Map },
   { href: "/reports/new", label: "Nouveau rapport de visite", icon: ClipboardPlus },
   { href: "/reports", label: "Rapports de visite", icon: FileText },
-  { href: "/signals", label: "Signaux opérationnels", icon: Activity },
-  { href: "/actions", label: "Décisions recommandées", icon: Lightbulb },
-  { href: "/pharmacy-risk", label: "Pharmacy Risk", icon: ShieldAlert }
+  { href: "/signals", label: "Observations & signaux", icon: Activity },
+  { href: "/actions", label: "Actions terrain", icon: Lightbulb }
 ];
 
 export function Sidebar() {
@@ -25,7 +24,7 @@ export function Sidebar() {
         </div>
         <div>
           <p className="text-sm font-bold text-text">Smart Pharma Intelligence</p>
-          <p className="text-xs text-muted">Field Intelligence Platform</p>
+          <p className="text-xs text-muted">Intelligence terrain pharmaceutique</p>
         </div>
       </div>
       <nav className="space-y-1">
