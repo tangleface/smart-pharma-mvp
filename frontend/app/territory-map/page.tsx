@@ -44,7 +44,7 @@ const demoScenarios: DemoScenario[] = [
     layer: "observations",
     kicker: "IA sous contrôle humain",
     title: "Extraction à valider",
-    description: "Une baisse de rotation est extraite par IA, mais reste en needs_review avant toute décision."
+    description: "Une baisse de rotation est extraite par l’IA, mais reste à valider par un humain avant toute décision."
   },
   {
     id: "strategy-execution",
@@ -194,7 +194,7 @@ export default function TerritoryMapPage() {
     };
   }, [data]);
 
-  if (loading) return <State message="Chargement de Territory Intelligence" />;
+  if (loading) return <State message="Chargement de l’intelligence territoriale" />;
   if (error) return <State message={error} critical />;
 
   return (
@@ -202,8 +202,8 @@ export default function TerritoryMapPage() {
       <section className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase text-accent">Experimental Field Model v0.2</p>
-            <h2 className="mt-2 text-xl font-semibold text-text">Territory Intelligence — Alger</h2>
+            <p className="text-xs font-semibold uppercase text-accent">Modèle terrain expérimental v0.2</p>
+            <h2 className="mt-2 text-xl font-semibold text-text">Intelligence territoriale — Alger</h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">
               Vue factuelle de la couverture terrain, des visites, des priorités management et des observations. Données synthétiques de démonstration.
             </p>
@@ -259,7 +259,7 @@ export default function TerritoryMapPage() {
           <div className="flex items-center gap-2">
             <Layers3 className="h-4 w-4 text-accent" />
             <div>
-              <h3 className="text-sm font-semibold text-text">Couche d'analyse</h3>
+              <h3 className="text-sm font-semibold text-text">Couche d’analyse</h3>
               <p className="text-xs text-muted">Fenêtre de couverture : {data?.coverage_window_days ?? 30} jours</p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function TerritoryMapPage() {
         </div>
 
         <p className="mt-3 text-xs text-muted">
-          Une sous-couverture n'est pas automatiquement un problème. Le panneau de contexte sépare observation terrain, directive management et action.
+          Une sous-couverture n’est pas automatiquement un problème. Le panneau de contexte sépare observation terrain, directive management et action.
         </p>
       </section>
     </div>
@@ -335,7 +335,7 @@ function ContextPanel({
     <aside className="rounded-lg border border-white/10 bg-panel p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase text-accent">Context & Governance</p>
+          <p className="text-xs font-semibold uppercase text-accent">Contexte & gouvernance</p>
           <h3 className="mt-1 text-base font-semibold text-text">{context.name}</h3>
           <p className="mt-1 text-xs text-muted">{context.territory ?? "—"} · {context.delegate ?? "—"} · segment {context.segment ?? "—"}</p>
         </div>
@@ -352,7 +352,7 @@ function ContextPanel({
         {context.observations.map((item) => (
           <div key={item.id} className="rounded-md border border-white/10 bg-card p-3">
             <div className="flex flex-wrap gap-2 text-[11px] text-muted">
-              <span>{item.product ?? item.category}</span><span>·</span><span>{item.source}</span><span>·</span><span>{item.validation_status}</span>
+              <span>{item.product ?? item.category}</span><span>·</span><span>{sourceLabel(item.source)}</span><span>·</span><span>{validationLabel(item.validation_status)}</span>
             </div>
             <p className="mt-2 text-sm leading-5 text-text">{item.text}</p>
           </div>
@@ -364,7 +364,7 @@ function ContextPanel({
           <div key={item.id} className="rounded-md border border-warning/20 bg-warning/10 p-3">
             <p className="text-sm font-semibold text-text">{item.title}</p>
             <p className="mt-1 text-xs leading-5 text-text">{item.instruction}</p>
-            <p className="mt-2 text-[11px] text-muted">Portée {item.scope} · créée par {item.created_by}</p>
+            <p className="mt-2 text-[11px] text-muted">Portée {scopeLabel(item.scope)} · créée par {item.created_by}</p>
           </div>
         ))}
       </ContextSection>
@@ -374,7 +374,7 @@ function ContextPanel({
           <div key={item.id} className="rounded-md border border-accent/20 bg-accent/10 p-3">
             <p className="text-sm font-semibold text-text">{item.title}</p>
             {item.rationale && <p className="mt-1 text-xs leading-5 text-muted">{item.rationale}</p>}
-            <p className="mt-2 text-[11px] text-muted">Source {item.source} · priorité {item.priority}</p>
+            <p className="mt-2 text-[11px] text-muted">Source {actionSourceLabel(item.source)} · priorité {priorityLabel(item.priority)}</p>
           </div>
         ))}
       </ContextSection>
@@ -473,7 +473,36 @@ function priorityLabel(priority: string | null): string {
   if (priority === "high") return "Haute";
   if (priority === "standard") return "Standard";
   if (priority === "low") return "Faible";
+  if (priority === "urgent") return "Urgente";
   return "Non définie";
+}
+
+function sourceLabel(source: string): string {
+  if (source === "delegate") return "Délégué";
+  if (source === "ai_extracted") return "Extraction IA";
+  if (source === "manager") return "Management";
+  return source;
+}
+
+function validationLabel(status: string): string {
+  if (status === "raw") return "Brute";
+  if (status === "validated") return "Validée";
+  if (status === "rejected") return "Rejetée";
+  if (status === "needs_review") return "À valider";
+  return status;
+}
+
+function scopeLabel(scope: string): string {
+  if (scope === "territory") return "Territoire";
+  if (scope === "pharmacy") return "Pharmacie";
+  return scope;
+}
+
+function actionSourceLabel(source: string): string {
+  if (source === "business_rule") return "Règle métier";
+  if (source === "ai_suggested") return "Suggestion IA";
+  if (source === "manual") return "Manuelle";
+  return source;
 }
 
 function Metric({ title, value, icon, alert = false }: { title: string; value: number; icon: ReactNode; alert?: boolean }) {
