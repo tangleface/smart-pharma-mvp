@@ -4,6 +4,7 @@ import type {
   NextBestAction,
   Report,
   ReportCreate,
+  PharmacyContextResponse,
   PharmacyRiskResponse,
   Signal,
   SignalDetail,
@@ -53,5 +54,6 @@ export const api = {
   dashboardCategories: () => request<BreakdownPoint[]>("/dashboard/categories"),
   dashboardSeverity: () => request<BreakdownPoint[]>("/dashboard/severity"),
   pharmacyRisks: () => request<PharmacyRiskResponse>("/pharmacy-risks"),
-  territoryMap: () => request<TerritoryMapResponse>("/vnext/territory/map")
+  territoryMap: () => request<TerritoryMapResponse>("/vnext/territory/map"),
+  pharmacyContext: (id: string) => request<PharmacyContextResponse>(`/vnext/pharmacies/${id}/context`)
 };
