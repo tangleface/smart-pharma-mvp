@@ -35,6 +35,24 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
+async function transcribeFieldReport(file: File): Promise<{ text: string; status: string }> {
+  const formData = new FormData();
+  formData.append("audio", file);
+
+  const response = await fetch(`${API_BASE_URL}/vnext/transcribe`, {
+    method: "POST",
+    body: formData,
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || `Transcription failed with status ${response.status}`);
+  }
+
+  return response.json() as Promise<{ text: string; status: string }>;
+}
+
 export const api = {
   reports: () => request<Report[]>("/reports"),
   createReport: (payload: ReportCreate) =>
@@ -55,5 +73,6 @@ export const api = {
   dashboardSeverity: () => request<BreakdownPoint[]>("/dashboard/severity"),
   pharmacyRisks: () => request<PharmacyRiskResponse>("/pharmacy-risks"),
   territoryMap: () => request<TerritoryMapResponse>("/vnext/territory/map"),
-  pharmacyContext: (id: string) => request<PharmacyContextResponse>(`/vnext/pharmacies/${id}/context`)
+  pharmacyContext: (id: string) => request<PharmacyContextResponse>(`/vnext/pharmacies/${id}/context`),
+  transcribeFieldReport
 };
