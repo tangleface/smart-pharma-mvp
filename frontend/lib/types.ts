@@ -141,7 +141,6 @@ export type PharmacyRiskResponse = {
   zones: PharmacyRiskZone[];
 };
 
-
 export type CoverageStatus = "on_target" | "watch" | "undercovered" | "excluded" | "unknown";
 
 export type TerritoryMapPoint = {
@@ -169,4 +168,57 @@ export type TerritoryMapResponse = {
   generated_at: string;
   coverage_window_days: number;
   points: TerritoryMapPoint[];
+};
+
+export type PharmacyObservationContext = {
+  id: string;
+  category: string;
+  text: string;
+  product: string | null;
+  source: string;
+  validation_status: string;
+  observed_at: string;
+  validated_at: string | null;
+  validated_by: string | null;
+};
+
+export type PharmacyDirectiveContext = {
+  id: string;
+  title: string;
+  instruction: string;
+  reason: string | null;
+  product: string | null;
+  scope: string;
+  status: string;
+  valid_from: string;
+  valid_until: string | null;
+  created_by: string;
+};
+
+export type PharmacyActionContext = {
+  id: string;
+  title: string;
+  action_type: string;
+  status: string;
+  priority: string;
+  source: string;
+  rationale: string | null;
+  due_at: string | null;
+  assigned_to: string | null;
+  created_by: string;
+};
+
+export type PharmacyContextResponse = {
+  pharmacy_id: string;
+  name: string;
+  internal_code: string | null;
+  territory: string | null;
+  delegate: string | null;
+  segment: string | null;
+  pharmacy_status: string;
+  management_priority: string | null;
+  management_priority_reason: string | null;
+  observations: PharmacyObservationContext[];
+  directives: PharmacyDirectiveContext[];
+  actions: PharmacyActionContext[];
 };
