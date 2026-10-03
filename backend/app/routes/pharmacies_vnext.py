@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from uuid import UUID
 
 from fastapi import APIRouter, Depends
 from sqlalchemy import and_, func, select
@@ -12,7 +13,8 @@ from app.models_vnext import (
     VNextUser,
     VNextVisit,
 )
-from app.schemas_vnext import PharmacyVNextListItem
+from app.schemas_vnext import PharmacyContextResponse, PharmacyVNextListItem
+from app.services.pharmacy_context import get_pharmacy_context
 
 
 router = APIRouter(prefix="/vnext/pharmacies", tags=["vnext-pharmacies"])
@@ -114,3 +116,11 @@ def list_pharmacies(db: Session = Depends(get_vnext_db)) -> list[PharmacyVNextLi
         )
         for row in rows
     ]
+
+
+@router.get("/{pharmacy_id}/context", response_model=PharmacyContextResponse)
+def pharmacy_context(
+    pharmacy_id: UUID,
+    db: Session = Depends(get_vnext_db),
+) -> PharmacyContextResponse:
+    return get_pharmacy_context(db, pharmacy_id)
