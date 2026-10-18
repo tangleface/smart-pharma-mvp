@@ -222,3 +222,22 @@ export type PharmacyContextResponse = {
   directives: PharmacyDirectiveContext[];
   actions: PharmacyActionContext[];
 };
+
+
+export type DatabaseRow = Record<string, unknown>;
+
+export type DatabaseDataset = {
+  key: string;
+  label: string;
+  source: string;
+  count: number;
+  note?: string;
+  rows: DatabaseRow[];
+};
+
+export type DatabaseOverview = {
+  status: string;
+  mode: string;
+  primary_database: string;
+  datasets: DatabaseDataset[];
+};
