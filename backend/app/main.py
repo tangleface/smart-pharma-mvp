@@ -6,6 +6,7 @@ from app.database import SessionLocal, init_db
 from app.routes import (
     actions,
     dashboard,
+    database_view_vnext,
     pharmacies_vnext,
     pharmacy_risks,
     reports,
@@ -60,4 +61,5 @@ app.include_router(pharmacy_risks.router)
 app.include_router(vnext.router)
 app.include_router(pharmacies_vnext.router)
 app.include_router(territory_vnext.router)
+app.include_router(database_view_vnext.router)
 app.include_router(transcription.router)
