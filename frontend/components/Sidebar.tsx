@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, BarChart3, ClipboardPlus, FileText, Lightbulb, Map } from "lucide-react";
+import { Activity, BarChart3, ClipboardPlus, Database, FileText, Lightbulb, Map } from "lucide-react";
 
 const nav = [
   { href: "/dashboard", label: "Vue d'ensemble terrain", icon: BarChart3 },
   { href: "/territory-map", label: "Intelligence territoriale", icon: Map },
+  { href: "/database", label: "Base de données", icon: Database },
   { href: "/reports/new", label: "Nouveau rapport de visite", icon: ClipboardPlus },
   { href: "/reports", label: "Rapports de visite", icon: FileText },
   { href: "/signals", label: "Observations & signaux", icon: Activity },
