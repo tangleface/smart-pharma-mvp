@@ -1,6 +1,7 @@
 import type {
   BreakdownPoint,
   DashboardSummary,
+  DatabaseOverview,
   NextBestAction,
   Report,
   ReportCreate,
@@ -68,6 +69,7 @@ export const api = {
   signalDetail: (id: number) => request<SignalDetail>(`/signals/${id}`),
   actions: () => request<NextBestAction[]>("/actions"),
   dashboardSummary: () => request<DashboardSummary>("/dashboard/summary"),
+  databaseOverview: () => request<DatabaseOverview>("/vnext/database/overview"),
   dashboardTrends: () => request<TrendPoint[]>("/dashboard/trends"),
   dashboardCategories: () => request<BreakdownPoint[]>("/dashboard/categories"),
   dashboardSeverity: () => request<BreakdownPoint[]>("/dashboard/severity"),
