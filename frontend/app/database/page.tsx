@@ -34,7 +34,6 @@ const labels: Record<string, string> = {
   valid_from: "Valide depuis",
   valid_until: "Valide jusqu’au",
   territory_id: "Territoire ID",
-  pharmacy_id: "Pharmacie ID",
   title: "Titre",
   instruction: "Instruction",
   action_type: "Type d’action",
