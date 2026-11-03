@@ -200,7 +200,7 @@ export default function TerritoryMapPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+      <section className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase text-accent">Modèle terrain expérimental v0.2</p>
@@ -264,7 +264,7 @@ export default function TerritoryMapPage() {
               <p className="text-xs text-muted">Fenêtre de couverture : {data?.coverage_window_days ?? 30} jours</p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible">
             {layerOptions.map((option) => (
               <button
                 key={option.id}
@@ -273,7 +273,7 @@ export default function TerritoryMapPage() {
                   setActiveScenarioId(null);
                   setLayer(option.id);
                 }}
-                className={`rounded-md border px-3 py-2 text-xs font-semibold transition ${
+                className={`shrink-0 rounded-md border px-3 py-2 text-xs font-semibold transition ${
                   layer === option.id
                     ? "border-accent/40 bg-accent/10 text-accent"
                     : "border-white/10 bg-panel text-muted hover:text-text"
