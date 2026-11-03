@@ -8,7 +8,7 @@ export function NextBestActionCard({ action }: { action: NextBestAction }) {
   const tone = action.priority === "urgent" ? "critical" : action.priority === "high" ? "warning" : "cyan";
 
   return (
-    <article className="rounded-lg border border-white/10 bg-card p-5">
+    <article className="rounded-lg border border-white/10 bg-card p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="mb-2 flex flex-wrap gap-2">
