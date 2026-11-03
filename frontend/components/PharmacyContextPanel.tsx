@@ -54,7 +54,7 @@ export function PharmacyContextPanel({
   const showStrategicReason = mode === "direction";
 
   return (
-    <aside className="rounded-lg border border-white/10 bg-panel p-4">
+    <aside className="rounded-lg border border-white/10 bg-panel p-3 sm:p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase text-accent">Contexte & gouvernance</p>
@@ -78,7 +78,7 @@ export function PharmacyContextPanel({
             </p>
           </div>
         </div>
-        <div className="mt-3 grid grid-cols-3 gap-2">
+        <div className="mt-3 grid grid-cols-3 gap-1.5 sm:gap-2">
           {modes.map((item) => (
             <button
               key={item.id}
