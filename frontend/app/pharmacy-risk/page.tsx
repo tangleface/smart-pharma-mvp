@@ -56,7 +56,7 @@ export default function PharmacyRiskPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+      <section className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase text-accent">Priorisation intelligente des pharmacies à risque</p>
@@ -71,7 +71,7 @@ export default function PharmacyRiskPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Metric title="Pharmacies critiques" value={data.summary.critical_pharmacies} icon={<AlertTriangle className="h-5 w-5" />} alert />
         <Metric title="Risque élevé" value={data.summary.high_risk_pharmacies} icon={<ShieldAlert className="h-5 w-5" />} />
         <Metric title="Zones à traiter" value={data.summary.zones_requiring_action} icon={<MapIcon className="h-5 w-5" />} />
@@ -216,7 +216,7 @@ function SelectField({
 
 function PharmacyRiskCard({ pharmacy }: { pharmacy: PharmacyRiskItem }) {
   return (
-    <article className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+    <article className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="mb-2 flex flex-wrap gap-2">
@@ -337,7 +337,7 @@ function PrioritizationMethod() {
 
 function HeatmapSection({ zones }: { zones: PharmacyRiskZone[] }) {
   return (
-    <section className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+    <section className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
       <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="mb-2 flex items-center gap-2">
@@ -449,7 +449,7 @@ function Metric({ title, value, icon, alert = false }: { title: string; value: n
         <p className="text-xs font-semibold uppercase text-muted">{title}</p>
         <div className={alert ? "text-critical" : "text-accent"}>{icon}</div>
       </div>
-      <p className="text-3xl font-semibold text-text">{value}</p>
+      <p className="text-2xl font-semibold text-text sm:text-3xl">{value}</p>
     </div>
   );
 }
