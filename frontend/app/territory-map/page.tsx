@@ -289,7 +289,7 @@ export default function TerritoryMapPage() {
           <div>
             <Legend layer={layer} />
             <div className="mt-4 overflow-hidden rounded-lg border border-white/10 bg-panel">
-              <div ref={mapContainerRef} className="h-[620px] w-full" />
+              <div ref={mapContainerRef} className="h-[460px] w-full sm:h-[620px]" />
             </div>
           </div>
           <PharmacyContextPanel
