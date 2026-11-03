@@ -79,7 +79,7 @@ export default function DatabasePage() {
 
   return (
     <div className="space-y-5">
-      <section className="rounded-lg border border-accent/20 bg-card p-5 shadow-glow">
+      <section className="rounded-lg border border-accent/20 bg-card p-4 shadow-glow sm:p-5">
         <div className="flex items-start gap-3">
           <div className="rounded-md border border-accent/30 bg-accent/10 p-3 text-accent">
             <Database className="h-6 w-6" />
@@ -113,14 +113,14 @@ export default function DatabasePage() {
         })}
       </section>
 
-      <section className="rounded-lg border border-white/10 bg-card p-4">
-        <div className="mb-4 flex flex-wrap gap-2">
+      <section className="rounded-lg border border-white/10 bg-card p-3 sm:p-4">
+        <div className="mb-4 flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible">
           {data.datasets.map((item) => (
             <button
               key={item.key}
               type="button"
               onClick={() => setActiveKey(item.key)}
-              className={`rounded-md border px-3 py-2 text-xs font-semibold transition ${
+              className={`shrink-0 rounded-md border px-3 py-2 text-xs font-semibold transition ${
                 dataset.key === item.key
                   ? "border-accent/40 bg-accent/10 text-accent"
                   : "border-white/10 bg-panel text-muted hover:text-text"
