@@ -177,7 +177,7 @@ export function ReportForm() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-      <form onSubmit={onSubmit} className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+      <form onSubmit={onSubmit} className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
         <div className="mb-5">
           <p className="text-xs font-semibold uppercase text-accent">Capture terrain</p>
           <h2 className="mt-1 text-lg font-semibold text-text">Rapport de visite</h2>
@@ -188,9 +188,9 @@ export function ReportForm() {
 
         <div className="mb-5 rounded-lg border border-white/10 bg-panel p-3">
           <p className="mb-3 text-xs font-semibold uppercase text-muted">Scénarios de démonstration</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid gap-2 sm:flex sm:flex-wrap">
             {scenarios.map((scenario) => (
-              <Button key={scenario.label} type="button" variant="secondary" onClick={() => applyScenario(scenario.data)}>
+              <Button key={scenario.label} type="button" variant="secondary" className="w-full sm:w-auto" onClick={() => applyScenario(scenario.data)}>
                 {scenario.label}
               </Button>
             ))}
@@ -219,13 +219,14 @@ export function ReportForm() {
         </div>
 
         <div className="mt-4">
-          <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-2 flex flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3">
             <span className="text-xs font-semibold uppercase text-muted">Rapport terrain brut</span>
             <Button
               type="button"
               variant={recording ? "secondary" : "secondary"}
               onClick={recording ? stopRecording : startRecording}
               disabled={transcribing}
+              className="w-full sm:w-auto"
             >
               {transcribing ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -260,15 +261,15 @@ export function ReportForm() {
 
         {error ? <p className="mt-4 rounded-md border border-critical/30 bg-critical/10 p-3 text-sm text-critical">{error}</p> : null}
 
-        <div className="mt-5 flex justify-end">
-          <Button disabled={loading || recording || transcribing}>
+        <div className="mt-5 flex justify-stretch sm:justify-end">
+          <Button className="w-full sm:w-auto" disabled={loading || recording || transcribing}>
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
             Structurer le rapport
           </Button>
         </div>
       </form>
 
-      <aside className="rounded-lg border border-white/10 bg-panel p-5">
+      <aside className="rounded-lg border border-white/10 bg-panel p-4 sm:p-5">
         <p className="text-xs font-semibold uppercase text-accent">Assistance IA</p>
         <h2 className="mt-1 text-lg font-semibold text-text">Synthèse structurée</h2>
         <p className="mt-1 text-sm leading-6 text-muted">
