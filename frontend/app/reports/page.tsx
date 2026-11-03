@@ -25,14 +25,14 @@ export default function ReportsPage() {
 
   return (
     <div className="rounded-lg border border-white/10 bg-card">
-      <div className="border-b border-white/10 p-5">
+      <div className="border-b border-white/10 p-4 sm:p-5">
         <h2 className="text-lg font-semibold text-text">Rapports de visite</h2>
         <p className="text-sm text-muted">Observations terrain brutes soumises pour analyse opérationnelle.</p>
       </div>
       {reports.length ? (
         <div className="divide-y divide-white/10">
           {reports.map((report) => (
-            <article key={report.id} className="grid gap-4 p-5 lg:grid-cols-[1fr_180px_120px]">
+            <article key={report.id} className="grid gap-3 p-4 sm:p-5 lg:grid-cols-[1fr_180px_120px]">
               <div>
                 <div className="mb-2 flex flex-wrap gap-2">
                   <Badge tone="cyan">{report.region}</Badge>
