@@ -8,7 +8,7 @@ import type { Signal } from "@/lib/types";
 
 export function SignalCard({ signal }: { signal: Signal }) {
   return (
-    <article className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+    <article className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -38,9 +38,9 @@ export function SignalCard({ signal }: { signal: Signal }) {
         </div>
         <p className="text-sm text-text">{signal.recommended_action}</p>
       </div>
-      <div className="mt-4 flex justify-end">
-        <Link href={`/signals/${signal.id}`}>
-          <Button variant="secondary">
+      <div className="mt-4 flex justify-stretch sm:justify-end">
+        <Link href={`/signals/${signal.id}`} className="w-full sm:w-auto">
+          <Button variant="secondary" className="w-full sm:w-auto">
             Voir l'analyse
             <ArrowRight className="h-4 w-4" />
           </Button>
