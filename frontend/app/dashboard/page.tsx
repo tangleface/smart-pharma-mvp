@@ -73,7 +73,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-lg border border-white/10 bg-card p-5 shadow-glow">
+      <section className="rounded-lg border border-white/10 bg-card p-4 shadow-glow sm:p-5">
         <p className="text-xs font-semibold uppercase text-accent">Vue d'ensemble terrain</p>
         <h2 className="mt-2 text-xl font-semibold text-text">Smart Pharma Intelligence</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">
@@ -81,7 +81,7 @@ export default function DashboardPage() {
         </p>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <section className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-5">
         <Metric title="Rapports terrain" value={data.summary.total_reports} icon={<FileText className="h-5 w-5" />} />
         <Metric title="Signaux actifs" value={data.summary.total_signals} icon={<Activity className="h-5 w-5" />} />
         <Metric title="Alertes critiques" value={data.summary.critical_alerts} icon={<AlertTriangle className="h-5 w-5" />} alert />
@@ -103,7 +103,7 @@ export default function DashboardPage() {
 
       <section className="grid gap-4 xl:grid-cols-[1fr_1fr]">
         <CategoryBreakdownChart data={data.categories} />
-        <div className="rounded-lg border border-white/10 bg-card p-4">
+        <div className="rounded-lg border border-white/10 bg-card p-3 sm:p-4">
           <h2 className="mb-4 text-sm font-semibold text-text">Alertes critiques récentes</h2>
           {criticalSignals.length ? (
             <div className="space-y-3">
@@ -124,7 +124,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-white/10 bg-card p-4">
+      <section className="rounded-lg border border-white/10 bg-card p-3 sm:p-4">
         <h2 className="mb-4 text-sm font-semibold text-text">Dernières décisions recommandées</h2>
         {data.actions.length ? (
           <div className="grid gap-3 lg:grid-cols-2">
@@ -248,12 +248,12 @@ function RiskMetric({ title, value, icon, alert = false }: { title: string; valu
 
 function Metric({ title, value, icon, alert = false }: { title: string; value: number; icon: React.ReactNode; alert?: boolean }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-card p-4">
+    <div className="rounded-lg border border-white/10 bg-card p-3 sm:p-4">
       <div className="mb-3 flex items-center justify-between">
         <p className="text-xs font-semibold uppercase text-muted">{title}</p>
         <div className={alert ? "text-critical" : "text-accent"}>{icon}</div>
       </div>
-      <p className="text-3xl font-semibold text-text">{value}</p>
+      <p className="text-2xl font-semibold text-text sm:text-3xl">{value}</p>
     </div>
   );
 }
